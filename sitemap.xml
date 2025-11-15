@@ -4,7 +4,7 @@
   <url>
     <loc>https://kunkun.eu.org/message/index.html</loc>
     
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,25 +13,7 @@
   <url>
     <loc>https://kunkun.eu.org/tags/index.html</loc>
     
-    <lastmod>2025-09-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://kunkun.eu.org/categories/index.html</loc>
-    
-    <lastmod>2025-09-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://kunkun.eu.org/friends/index.html</loc>
-    
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -40,7 +22,34 @@
   <url>
     <loc>https://kunkun.eu.org/404.html</loc>
     
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kunkun.eu.org/categories/index.html</loc>
+    
+    <lastmod>2025-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kunkun.eu.org/friends/index.html</loc>
+    
+    <lastmod>2025-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kunkun.eu.org/about/index.html</loc>
+    
+    <lastmod>2025-11-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -73,19 +82,10 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://kunkun.eu.org/about/index.html</loc>
-    
-    <lastmod>2025-08-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>https://kunkun.eu.org/</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -93,28 +93,28 @@
   
   <url>
     <loc>https://kunkun.eu.org/tags/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://kunkun.eu.org/tags/Github-Actions/</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://kunkun.eu.org/tags/Minecraft/</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://kunkun.eu.org/tags/Server/</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -123,7 +123,7 @@
   
   <url>
     <loc>https://kunkun.eu.org/categories/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
