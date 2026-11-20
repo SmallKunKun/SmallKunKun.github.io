@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="我的博客基于Flare Stack Blog搭建，体验很不错。但它前后端部署在Workers，仅支持绑定Workers域名访问。我Vibe Coding了一个项目可以将FSB镜像成静态站点，这样就能随意部署了。"><script>
+      (() => {
+        const key = "sagiri-theme";
+        let mode = "auto";
+
+        try {
+          const stored = localStorage.getItem(key);
+          if (stored === "light" || stored === "dark" || stored === "auto") {
+            mode = stored;
+          }
+        } catch {
+          // Storage can be unavailable in private mode.
+        }
+
+        const dark =
+          mode === "dark" ||
+          (mode === "auto" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+        document.documentElement.dataset.themeMode = mode;
+      })();
+    </script><link rel="icon" type="image/svg+xml" href="/images/remote/6296e505aaa4a1ab77757cc5.svg"><link rel="icon" type="image/png" sizes="96x96" href="/images/remote/6d6481059701c2651f22f9c4.png"><link rel="apple-touch-icon" sizes="180x180" href="/images/remote/5f828749322672add4d68cdf.png"><link rel="icon" type="image/png" sizes="192x192" href="/images/remote/94eeb325a9a34a3ddf2d0385.png"><link rel="icon" type="image/png" sizes="512x512" href="/images/remote/2065983c30ca10a189243a94.png"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"><title>Sagiri Mirror食用说明 | SmallKunKun</title><link rel="stylesheet" href="/_astro/BaseLayout.B2Ip9kVo.css"></head><body id="top"><canvas id="evanyou" aria-hidden="true"></canvas><a class="skip-link" href="#main">跳到正文</a><div class="site-shell"><header class="site-header"><div class="site-nav-bar"><nav class="site-nav" aria-label="主导航"><ul class="site-menu"><li class="menu-item"><a href="/"><i class="menu-icon fas fa-meteor" aria-hidden="true"></i>首页</a></li><li class="menu-item"><a href="/posts"><i class="menu-icon fas fa-archive" aria-hidden="true"></i>文章</a></li><li class="menu-item"><a href="/friends"><i class="menu-icon fas fa-mars-stroke" aria-hidden="true"></i>友链</a></li><li class="menu-item"><a href="/about"><i class="menu-icon fas fa-heartbeat" aria-hidden="true"></i>关于</a></li><li class="menu-item menu-search"><form class="search-form" action="/search/" method="get" role="search"><label class="sr-only" for="site-search">站内搜索</label><input id="site-search" class="search-input" type="search" name="q" placeholder="站内搜索"><button class="search-submit" type="submit" aria-label="搜索"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16.5 16.5 4 4"></path></svg></button></form><div class="theme-switcher"><button class="theme-toggle" type="button" aria-label="切换主题" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu"><i class="fas fa-adjust theme-icon theme-icon-auto" aria-hidden="true"></i><i class="fas fa-sun theme-icon theme-icon-light" aria-hidden="true"></i><i class="fas fa-moon theme-icon theme-icon-dark" aria-hidden="true"></i></button><div class="theme-menu" id="theme-menu" role="menu" hidden><button type="button" role="menuitemradio" data-theme-choice="auto" aria-checked="true">自动</button><button type="button" role="menuitemradio" data-theme-choice="light" aria-checked="false">白天</button><button type="button" role="menuitemradio" data-theme-choice="dark" aria-checked="false">黑夜</button></div></div></li></ul></nav></div><div class="site-banner" style="--banner-image: url('/images/remote/065914b9a317536881ee68e0.png')"><div class="site-banner-inner"><h1 class="brand-title" aria-label="SmallKunKun"><span class="brand-layer brand-stroke" aria-hidden="true"><span class="brand-letter" style="--i: 0">S</span><span class="brand-letter" style="--i: 1">m</span><span class="brand-letter" style="--i: 2">a</span><span class="brand-letter" style="--i: 3">l</span><span class="brand-letter" style="--i: 4">l</span><span class="brand-letter" style="--i: 5">K</span><span class="brand-letter" style="--i: 6">u</span><span class="brand-letter" style="--i: 7">n</span><span class="brand-letter" style="--i: 8">K</span><span class="brand-letter" style="--i: 9">u</span><span class="brand-letter" style="--i: 10">n</span></span><span class="brand-layer brand-fill" aria-hidden="true"><span class="brand-letter" style="--i: 0">S</span><span class="brand-letter" style="--i: 1">m</span><span class="brand-letter" style="--i: 2">a</span><span class="brand-letter" style="--i: 3">l</span><span class="brand-letter" style="--i: 4">l</span><span class="brand-letter" style="--i: 5">K</span><span class="brand-letter" style="--i: 6">u</span><span class="brand-letter" style="--i: 7">n</span><span class="brand-letter" style="--i: 8">K</span><span class="brand-letter" style="--i: 9">u</span><span class="brand-letter" style="--i: 10">n</span></span></h1></div></div><div class="site-master"><img class="site-master-avatar" src="/images/remote/798c097f86f68ca325ce7323.jpg" alt=""><h2 class="site-master-description">Dream it. Chase It. Code it.</h2></div></header><script>
+  (() => {
+    const key = "sagiri-theme";
+    const root = document.documentElement;
+    const toggle = document.querySelector(".theme-toggle");
+    const menu = document.getElementById("theme-menu");
+    const choices = [...document.querySelectorAll("[data-theme-choice]")];
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+    if (!toggle || !menu) return;
+
+    const apply = (mode, persist = true) => {
+      const next =
+        mode === "light" || mode === "dark" || mode === "auto" ? mode : "auto";
+      const dark = next === "dark" || (next === "auto" && media.matches);
+
+      root.dataset.themeMode = next;
+      root.dataset.theme = dark ? "dark" : "light";
+
+      if (persist) {
+        try {
+          localStorage.setItem(key, next);
+        } catch {
+          // Storage can be unavailable in private mode.
+        }
+      }
+
+      for (const choice of choices) {
+        choice.setAttribute(
+          "aria-checked",
+          String(choice.dataset.themeChoice === next),
+        );
+      }
+    };
+
+    const close = () => {
+      menu.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    const open = () => {
+      menu.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+    };
+
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      menu.hidden ? open() : close();
+    });
+
+    for (const choice of choices) {
+      choice.addEventListener("click", () => {
+        apply(choice.dataset.themeChoice);
+        close();
+        toggle.focus();
+      });
+    }
+
+    document.addEventListener("click", (event) => {
+      const switcher = toggle.closest(".theme-switcher");
+      if (!menu.hidden && switcher && !switcher.contains(event.target)) {
+        close();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !menu.hidden) {
+        close();
+        toggle.focus();
+      }
+    });
+
+    const onChange = () => {
+      if ((root.dataset.themeMode || "auto") === "auto") {
+        apply("auto", false);
+      }
+    };
+
+    if (media.addEventListener) {
+      media.addEventListener("change", onChange);
+    } else {
+      media.addListener(onChange);
+    }
+
+    apply(root.dataset.themeMode || "auto", false);
+  })();
+</script><div class="site-body"><main id="main" class="site-main"><article class="post-single"><div class="post-date" aria-hidden="true"><span class="post-month">11月</span><span class="post-day">20</span></div><a class="post-badge" href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a><header class="post-single-header"><h1 class="post-single-title">Sagiri Mirror食用说明</h1><div class="post-meta"><span class="post-time"><svg class="post-meta-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg><span class="post-meta-label">发表于</span><time datetime="2026-11-20T00:00:00.000Z" title="创建于">2026-11-20</time></span><span class="post-readtime"><span class="post-meta-divider" aria-hidden="true">•</span><svg class="post-meta-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span class="post-meta-label">阅读时长</span><span>6 分钟</span></span></div></header><img class="post-single-cover" src="/images/remote/97bc830e545cba36c26c3dbf.jpg" alt="" width="1920" height="1126" loading="eager" draggable="false"><div class="post-body-single"><p>我的博客目前是使用 <a href="https://github.com/du2333/flare-stack-blog" target="_blank" rel="noopener noreferrer nofollow">Flare Stack Blog</a> 作为框架的，这个项目非常好，能够让我将 Cloudflare 白嫖到底。但是，它的前后端是一起部署在 Cf Workers 上的，只能通过绑定在 Workers 上的域名来访问。几年前，我申请过一个 kunkun.js.org，它指向我的 Github Pages，我没办法让它绑定到 Workers。我希望能把这个域名利用起来，也展示我的博客。之前我的做法是再单独部署一套静态博客生成器，我手动将 FSB 上的博客复制成 Markdown 来生成静态页面，最后推送到仓库。</p><p>这样显然比较麻烦，需要我动手，很不健康。几年前，我做多平台部署博客的时候，将静态博客生成器推送到 Github，使用 Actions 来自动化部署。我可以继续沿用这个思路，让我不用手动部署。但是，文章源呢？我想到，后端的文章接口是暴露的，免登录的，直接将后端作为构建的文章源的提供者不就行了嘛。让 DeepSeek 看了 FSB 的源码，发现我的思路是可行的。</p><p>当下 Vibe Coding 很方便，我也就让 AI 去完成这个项目，自己只对 AI 的产物检查并提出修改建议。大概花了 6 个小时吧，就把整个项目做出来了。</p><h2 id="介绍"><strong>📢 介绍</strong></h2><p>整个项目采用 Astro + Vue islands 的框架，主题我是移植的我最喜欢的 Hexo 主题 Sagiri。使用 Github Actions 构建，在构建时会自动读取后端 API 的数据，并构建成纯静态页面。所以，整个项目相当于将 SFC 站点镜像到其他位置，但是主题变成了 Sagiri，所以我将项目命名为了 Sagiri Mirror。镜像站只专注于博客功能，所以源站的评论、后台等功能就砍掉了。</p><p>我也想过让这个前端直接拉取后端的内容然后动态渲染，但是我觉得这样不太好，可能会有跨域的问题，不太好解决。静态也有好处，每天四点同步一次源站，如果有用户浏览镜像站，就是使用镜像站的流量了，可以减少源站的流量，保证不会超出每月的 Cf 免费额度。</p><h2 id="特性"><strong>🎨 特性</strong></h2><ul><li><p>尽可能复刻 Sagiri 主题的布局</p></li><li><p>添加主题切换按钮，默认自动，白天、黑夜可选</p></li><li><p>页脚可以自定义运行时间和 ICP 备案信息</p></li><li><p>支持自定义域名、目标仓库和源站地址配置</p></li><li><p>Github Actions 自动定时构建并推送</p></li><li><p>构建时生成静态索引，不使用后端接口</p></li><li><p>构建前会下载源站图片，部署后不使用源站图床</p></li></ul><h2 id="快速开始"><strong>🚀 快速开始</strong></h2><h3 id="前置条件">前置条件</h3><ul><li><p>一个 Github 账号</p></li><li><p>一个已经部署 Flare Stack Blog 的 Cloudflare 账号</p></li></ul><h3 id="1-fork-仓库">1. Fork 仓库</h3><p>打开 <a href="https://github.com/SmallKunKun/sagiri-mirror" target="_blank" rel="noopener noreferrer nofollow">SmallKunKun/sagiri-mirror</a>，点击右上角的 Fork。</p><img src="/images/remote/aec2de643414d3ab80868bb6.png" alt="Fork 仓库"><p>在 Create a new fork 页面中，Owner 选择自己的 Github 账户，保留 Repository name 和 Description 的原文本，勾选 Copy the main branch only，完成后点击 Create fork 按钮。</p><h3 id="2-创建-pat">2. 创建 PAT</h3><p>打开 Github Settings → Developer settings → Personal access tokens → Fine-grained tokens，也可以直接打开 <a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener noreferrer nofollow">Fine-grained personal access tokens</a>，点击右上角的 Generate new token。</p><img src="/images/remote/33a87b36689f22af81ea5dfb.png" alt="创建 PAT"><p>在 New fine-grained personal access token 页面中，Token name 可以自己起一个名字，Description 可以不填写，Resource owner 选择自己的 Github 账户，Expiration 选择 No expiration，Repository access 选择 Only select repositories 并勾选你的 sagiri-mirror 仓库，Permissions 先点击 Add permissions 再勾选 Contents 然后将 Contents 的 Access 选为 Read and write，完成后点击 Generate token 按钮。</p><img src="/images/remote/2d67a0498a2925b7007ba44d.png" alt="创建 PAT"><p>会有一个弹窗，再点击一次 Generate token 按钮确认生成即可。</p><p>将生成的以 github_pat_ 开头的字符串复制并粘贴到记事本等位置并保存好，因为这个字符串只会显示这一次，如果不慎丢失，请先删除已丢失的，再按照上述步骤重新生成一个新的。</p><h3 id="3-添加密钥和变量">3. 添加密钥和变量</h3><h4 id="添加密钥">添加密钥</h4><p>回到你的 sagiri-mirror 仓库，打开 Settings → Secrets and variables → Actions。</p><p>点击 New repository secret 按钮，Name 填入 <code spellCheck="false">DEPLOY_TOKEN</code>，Secret 粘贴上一步生成的字符串，完成后点击 Add secret 按钮。</p><p>打开终端，运行 <code spellCheck="false">openssl rand -hex 32</code>，生成随机的 32 位字符串，复制并粘贴到记事本等位置保存好。回到浏览器，再点击 New repository secret 按钮，Name 填入 <code spellCheck="false">BLOG_API_TOKEN</code>，Secret 粘贴终端生成的字符串，完成后点击 Add secret 按钮。</p><p>完成后应该如下图。</p><img src="/images/remote/dd8f11f10e065346bac8b267.png" alt="添加密钥"><h4 id="添加变量">添加变量</h4><p>切换到 Variables ，点击 New repository variable，Name 填入下表的变量名，Value 根据你的情况填写，完成后点击 Add variable 按钮。</p><p>整个项目有以下变量：</p><table><tbody><tr><th style="text-align: center"><p>变量名</p></th><th style="text-align: center"><p>说明</p></th><th style="text-align: center"><p>示例值</p></th></tr><tr><td style="text-align: center"><p><code spellCheck="false">BLOG_ORIGIN</code></p></td><td style="text-align: center"><p>SFB地址（必填）</p></td><td style="text-align: center"><p><code spellCheck="false">https://your-blog.example.com</code></p></td></tr><tr><td style="text-align: center"><p><code spellCheck="false">PAGES_REPOSITORY</code></p></td><td style="text-align: center"><p>目标仓库（必填）</p></td><td style="text-align: center"><p><code spellCheck="false">your-name/your-name.github.io</code></p></td></tr><tr><td style="text-align: center"><p><code spellCheck="false">CNAME</code></p></td><td style="text-align: center"><p>自定义域名（选填）</p></td><td style="text-align: center"><p><code spellCheck="false">blog.example.com</code></p></td></tr><tr><td style="text-align: center"><p><code spellCheck="false">FOOTER_SINCE</code></p></td><td style="text-align: center"><p>博客开始运行时间（选填）</p></td><td style="text-align: center"><p><code spellCheck="false">2020-01-01T00:00:00+08:00</code></p></td></tr><tr><td style="text-align: center"><p><code spellCheck="false">FOOTER_ICP</code></p></td><td style="text-align: center"><p>ICP 备案号（选填）</p></td><td style="text-align: center"><p><code spellCheck="false">萌ICP备 00000000号</code></p></td></tr><tr><td style="text-align: center"><p><code spellCheck="false">FOOTER_ICP_URL</code></p></td><td style="text-align: center"><p>ICP 查询链接（选填）</p></td><td style="text-align: center"><p><code spellCheck="false">https://icp.gov.moe/?keyword=00000000</code></p></td></tr></tbody></table><p>完成后应该如下图。</p><img src="/images/remote/fc45030430c1a45ae27d9cfb.png" alt="添加变量"><h3 id="4-添加安全规则">4. 添加安全规则</h3><p>打开你的 Cloudflare，进入 FSB 使用的域，打开 安全性 → 安全规则。</p><p>点击右上角的 创建规则 按钮，规则名称 填入 <code spellCheck="false">Sagiri Mirror</code>，字段 选择 <code spellCheck="false">标头</code>，名称 填入 <code spellCheck="false">x-blog-mirror-token</code>，运算符 选择 <code spellCheck="false">等于</code>，值 填入 之前终端生成的 32 位字符串。</p><p>选择操作 选择 <code spellCheck="false">跳过</code>，勾选 <code spellCheck="false">所有其余自定义规则</code>、<code spellCheck="false">所有托管规则</code>、<code spellCheck="false">所有Super Bot Fight模式规则</code>、<code spellCheck="false">浏览器完整性检查</code> 和 <code spellCheck="false">区域锁定</code>，选择顺序 选择 <code spellCheck="false">第一个</code>，状态 选择 <code spellCheck="false">活动</code>，完成后点击 保存 按钮。</p><p>可以参考下图。</p><img src="/images/remote/e49adac18fefbc69fc4c77c7.png" alt="添加安全规则"><p>再打开 安全性 → 设置，确保 自动程序流量 下的 <code spellCheck="false">Bot Fight 模式</code> 关闭。</p><h3 id="5-新建目标仓库">5. 新建目标仓库</h3><p>创建一个 Github 仓库，仓库名为添加变量一步中填入 PAGES_REPOSITORY 的值中，/ 后的名称，比如说 <code spellCheck="false">your-name.github.io</code>。</p><p>进入这个仓库，创建一个 <code spellCheck="false">gh-pages</code> 分支。</p><p>再打开 Settings → Pages，Source 选择 <code spellCheck="false">Deploy from a branch</code>，Branch 选择 <code spellCheck="false">gh-pages</code>，点击 Save 按钮。</p><p>可以参考下图配置。</p><img src="/images/remote/ce8b37b380d61b33f821f75f.png" alt="配置 Pages"><h3 id="6-运行-actions">6. 运行 Actions</h3><p>回到你的 sagiri-mirror 仓库，打开 Actions → Sync and deploy，点击右上角的 Run workflow 按钮，再次点击 Run workflow 按钮。</p><p>等待 Actions 运行的结果，如果没有报错，就可以访问 自定义域名 或者 your-name.github.io 查看效果了。</p><h2 id="后记">🪶 后记</h2><p>欢迎大家 PR 或者 Issues，如果觉得项目不错或者有帮到你的话，不妨给个 Star，谢谢！</p><p></p></div><footer class="post-footer"><div class="post-tags"><a href="/tags/VibeCoding/" rel="tag"># VibeCoding</a></div></footer><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/post/a3238-downgrade/" rel="next" title="A3238降级macOS"><i class="fas fa-angle-left"></i> A3238降级macOS</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"></div></div></article></main><aside class="site-sidebar"><section class="sidebar-card sidebar-tabs"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">关于我</li></ul><div id="post-toc-wrap" class="post-toc-wrap sidebar-panel sidebar-panel-active"><ul class="post-toc"><li class="post-toc-level-2"><a href="#介绍">📢 介绍</a></li><li class="post-toc-level-2"><a href="#特性">🎨 特性</a></li><li class="post-toc-level-2"><a href="#快速开始">🚀 快速开始</a></li><li class="post-toc-level-3"><a href="#前置条件">前置条件</a></li><li class="post-toc-level-3"><a href="#1-fork-仓库">1. Fork 仓库</a></li><li class="post-toc-level-3"><a href="#2-创建-pat">2. 创建 PAT</a></li><li class="post-toc-level-3"><a href="#3-添加密钥和变量">3. 添加密钥和变量</a></li><li class="post-toc-level-3"><a href="#4-添加安全规则">4. 添加安全规则</a></li><li class="post-toc-level-3"><a href="#5-新建目标仓库">5. 新建目标仓库</a></li><li class="post-toc-level-3"><a href="#6-运行-actions">6. 运行 Actions</a></li><li class="post-toc-level-2"><a href="#后记">🪶 后记</a></li></ul></div><div id="site-overview-wrap" class="site-overview-wrap sidebar-panel"><div class="author-card"><div class="author-profile"><div class="author-cover" style="background-image: url('/images/remote/798c097f86f68ca325ce7323.jpg')"></div><h2 class="author-name">SmallKunKun</h2><p class="author-description site-description motion-element">Dream it. Chase It. Code it.</p></div><div class="author-social"><a href="https://github.com/smallkunkun" target="_blank" rel="me noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" stroke="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3" /></svg><span>GitHub</span></a><a href="mailto:me@kunkun.eu.org" aria-label="Email"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg><span>Email</span></a><a href="https://kunkun.eu.org/rss.xml" target="_blank" rel="me noreferrer" aria-label="RSS"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" /><path d="M5 12a7 7 0 0 1 7 7" /><path d="M5 5a14 14 0 0 1 14 14" /></svg><span>RSS</span></a></div></div></div></section></aside><script>
+  (() => {
+    const nav = document.querySelector(".sidebar-nav");
+    if (!nav) return;
+
+    const tabs = [...nav.querySelectorAll("[data-target]")];
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => {
+        for (const item of tabs) {
+          item.classList.toggle("sidebar-nav-active", item === tab);
+        }
+        for (const panel of document.querySelectorAll(".sidebar-panel")) {
+          panel.classList.toggle(
+            "sidebar-panel-active",
+            panel.id === tab.dataset.target,
+          );
+        }
+      });
+    }
+  })();
+</script></div><footer class="site-footer"><div class="footer-image" aria-hidden="true"><img src="/images/footer.png" alt=""></div><div class="footer-inner"><p class="footer-runtime">博客已萌萌哒运行<span class="footer-since" data-since="2022-01-20T00:00:00+08:00"></span><span class="my-face">(●'◡'●)ﾉ♥</span></p><p>© 2026 SmallKunKun. 由 <a href="https://astro.build" target="_blank" rel="noreferrer">Astro</a> 强力驱动. 由 <a href="https://github.com/SmallKunKun/sagiri-mirror" target="_blank" rel="noreferrer">Sagiri Mirror</a> 镜像站点.<span class="footer-icp"> <a href="https://icp.gov.moe/?keyword=20220036" target="_blank" rel="noreferrer">萌ICP备 20220036号</a></span></p><p class="footer-made">Made with <span class="footer-heart" aria-hidden="true">♥</span> by SmallKunKun</p></div></footer><script>
+  (() => {
+    const element = document.querySelector("[data-since]");
+    if (!element) return;
+
+    const since = Date.parse(element.dataset.since);
+    if (!Number.isFinite(since)) return;
+
+    const tick = () => {
+      const diff = Math.max(0, Date.now() - since);
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      element.textContent = `${days}天${hours}小时${minutes}分${seconds}秒`;
+    };
+
+    tick();
+    window.setInterval(tick, 1000);
+  })();
+</script></div><a class="back-to-top" href="#top" aria-label="回到顶部"><img src="/images/scroll.png" alt=""></a><script type="module" src="/_astro/BaseLayout.astro_astro_type_script_index_0_lang.CfCJp20R.js"></script><script>
+      (() => {
+        const button = document.querySelector(".back-to-top");
+        if (!button) return;
+
+        const update = () => {
+          button.style.top =
+            window.scrollY > 700
+              ? `${window.innerHeight - 980}px`
+              : "-900px";
+        };
+
+        update();
+        window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+      })();
+    </script><script>
+      if (document.getElementById("evanyou")) {
+        const canvas = document.getElementById("evanyou");
+        const context = canvas.getContext("2d");
+        const ratio = window.devicePixelRatio || 1;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const f = 90;
+        const tau = Math.PI * 2;
+        let r = 0;
+        let queue;
+
+        canvas.width = width * ratio;
+        canvas.height = height * ratio;
+        context.scale(ratio, ratio);
+        context.globalAlpha = 0.6;
+
+        function evanyou() {
+          context.clearRect(0, 0, width, height);
+          queue = [
+            { x: 0, y: height * 0.7 + f },
+            { x: 0, y: height * 0.7 - f },
+          ];
+          while (queue[1].x < width + f) draw(queue[0], queue[1]);
+        }
+
+        function draw(i, j) {
+          context.beginPath();
+          context.moveTo(i.x, i.y);
+          context.lineTo(j.x, j.y);
+          const k = j.x + (Math.random() * 2 - 0.25) * f;
+          const n = nextY(j.y);
+          context.lineTo(k, n);
+          context.closePath();
+          r -= tau / -50;
+          const red = Math.cos(r) * 127 + 128;
+          const green = Math.cos(r + tau / 3) * 127 + 128;
+          const blue = Math.cos(r + (tau * 2) / 3) * 127 + 128;
+          const color = ((red << 16) | (green << 8) | blue) >>> 0;
+          context.fillStyle = `#${color.toString(16).padStart(6, "0")}`;
+          context.fill();
+          queue[0] = queue[1];
+          queue[1] = { x: k, y: n };
+        }
+
+        function nextY(p) {
+          const t = p + (Math.random() * 2 - 1.1) * f;
+          return t > height || t < 0 ? nextY(p) : t;
+        }
+
+        document.onclick = evanyou;
+        document.ontouchstart = evanyou;
+        evanyou();
+      }
+    </script></body></html>
